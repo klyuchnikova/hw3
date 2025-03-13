@@ -1,0 +1,47 @@
+name: "resnet_postprocessing_fp16"
+backend: "python"
+max_batch_size: 10
+
+
+input [
+  {
+    name: "PREDICTION_FP16"
+    data_type: TYPE_FP16
+    dims: [ 2 ]
+  },
+  {
+    name: "THRESHOLD"
+    data_type: TYPE_FP16
+    dims: [ 1 ]
+  }
+]
+
+output [
+  {
+    name: "score_fp16"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  },
+  {
+    name: "verdict_fp16"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_CPU
+    }
+]
+
+
+parameters: [
+  {
+    key: "EXECUTION_ENV_PATH"
+    value: {
+      string_value: "$$TRITON_MODEL_DIRECTORY/triton_cv_env310.tar.gz"
+    }
+  }
+]

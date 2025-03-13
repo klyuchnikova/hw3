@@ -1,0 +1,27 @@
+name: "resnet_model_fp32"
+platform: "onnxruntime_onnx"
+max_batch_size: 10
+
+
+input [
+  {
+    name: "IMAGE_FP32"
+    data_type: TYPE_FP32
+    dims: [ 3, 224, 224 ]
+  }
+]
+
+output [
+  {
+    name: "PREDICTION_FP32"
+    data_type: TYPE_FP32
+    dims: [ 2 ]
+  }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_CPU
+    }
+]

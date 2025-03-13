@@ -1,0 +1,145 @@
+name: "resnet_ensemble"
+platform: "ensemble"
+max_batch_size: 10
+
+
+input [
+  {
+    name: "IMAGE_PATH"
+    data_type: TYPE_STRING
+    dims: [ -1 ]
+  },
+  {
+    name: "THRESHOLD"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  }
+]
+
+output [
+  {
+    name: "score_fp16"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  },
+  {
+    name: "verdict_fp16"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  },
+  {
+    name: "score_fp32"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  },
+  {
+    name: "verdict_fp32"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  }
+]
+
+ensemble_scheduling {
+  step [
+    {
+      model_name: "resnet_preprocessing"
+      model_version: -1
+      input_map [
+        {
+          key: "IMAGE_PATH"
+          value: "IMAGE_PATH"
+        }
+      ]
+      output_map [
+        {
+          key: "IMAGE_FP32"
+          value: "IMAGE_FP32"
+        },
+        {
+          key: "IMAGE_FP16"
+          value: "IMAGE_FP16"
+        }
+      ]
+    },
+    {
+      model_name: "resnet_model_fp16"
+      model_version: -1
+      input_map [
+        {
+          key: "IMAGE_FP16"
+          value: "IMAGE_FP16"
+        }
+      ]
+      output_map [
+        {
+          key: "PREDICTION_FP16"
+          value: "PREDICTION_FP16"
+        }
+      ]
+    },
+    {
+      model_name: "resnet_model_fp32"
+      model_version: -1
+      input_map [
+        {
+          key: "IMAGE_FP32"
+          value: "IMAGE_FP32"
+        }
+      ]
+      output_map [
+        {
+          key: "PREDICTION_FP32"
+          value: "PREDICTION_FP32"
+        }
+      ]
+    },
+    {
+      model_name: "resnet_postprocessing_fp16"
+      model_version: -1
+      input_map [
+        {
+          key: "PREDICTION_FP16"
+          value: "PREDICTION_FP16"
+        },
+        {
+          key: "THRESHOLD"
+          value: "THRESHOLD"
+        }
+      ]
+      output_map [
+        {
+          key: "score_fp16"
+          value: "score_fp16"
+        }, 
+        {
+          key: "verdict_fp16"
+          value: "verdict_fp16"
+        }
+      ]
+    },
+    {
+      model_name: "resnet_postprocessing_fp32"
+      model_version: -1
+      input_map [
+        {
+          key: "PREDICTION_FP32"
+          value: "PREDICTION_FP32"
+        },
+        {
+          key: "THRESHOLD"
+          value: "THRESHOLD"
+        }
+      ]
+      output_map [
+        {
+          key: "score_fp32"
+          value: "score_fp32"
+        }, 
+        {
+          key: "verdict_fp32"
+          value: "verdict_fp32"
+        }
+      ]
+    }
+  ]
+}

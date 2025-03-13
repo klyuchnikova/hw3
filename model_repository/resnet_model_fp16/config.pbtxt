@@ -1,0 +1,27 @@
+name: "resnet_model_fp16"
+platform: "onnxruntime_onnx"
+max_batch_size: 10
+
+
+input [
+  {
+    name: "IMAGE_FP16"
+    data_type: TYPE_FP16
+    dims: [ 3, 224, 224 ]
+  }
+]
+
+output [
+  {
+    name: "PREDICTION_FP16"
+    data_type: TYPE_FP16
+    dims: [ 2 ]
+  }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_CPU
+    }
+]

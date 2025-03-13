@@ -1,0 +1,4 @@
+./PetImages/*
+*.jpg
+*.onnx
+.ipynb_checkpoints/*
