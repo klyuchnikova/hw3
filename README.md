@@ -15,3 +15,5 @@ Then we start the docker
 ```bash
 docker-compose -f docker-compose.yml up
 ```
+
+I tried some freaky dances with Dcoker file and making an image to update some gcc libs, but I STILL could not connect to env. I don't understad( I was forces to use pip install but at least I checked that it's all running

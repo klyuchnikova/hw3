@@ -12,7 +12,6 @@ class TritonPythonModel:
     def initialize(self, args):
         self.model_config = json.loads(args["model_config"])
         self.fp16_output_name = "IMAGE_FP16"
-        self.fp32_output_name = "IMAGE_FP32"
 
     def execute(self, requests):
         responses = []
@@ -27,14 +26,9 @@ class TritonPythonModel:
             preprocessed_images = preproc_images(image_filenames, target_size=224)
 
             preprocessed_images_np = np.array(preprocessed_images, dtype=np.float32)
-            images_tensor_fp32 = pb_utils.Tensor(
-                self.fp32_output_name, preprocessed_images_np
-            )
             images_tensor_fp16 = pb_utils.Tensor(
                 self.fp16_output_name, preprocessed_images_np.astype(np.float16)
             )
-            response = pb_utils.InferenceResponse(
-                output_tensors=[images_tensor_fp32, images_tensor_fp16]
-            )
+            response = pb_utils.InferenceResponse(output_tensors=[images_tensor_fp16])
             responses.append(response)
         return responses

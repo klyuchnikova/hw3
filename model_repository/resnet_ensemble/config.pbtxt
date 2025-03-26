@@ -2,7 +2,6 @@ name: "resnet_ensemble"
 platform: "ensemble"
 max_batch_size: 10
 
-
 input [
   {
     name: "IMAGE_PATH"
@@ -18,12 +17,12 @@ input [
 
 output [
   {
-    name: "score_fp16"
+    name: "score_fp16_fin"
     data_type: TYPE_FP32
     dims: [ 1 ]
   },
   {
-    name: "verdict_fp16"
+    name: "verdict_fp16_fin"
     data_type: TYPE_BOOL
     dims: [ 1 ]
   }
@@ -52,8 +51,8 @@ ensemble_scheduling {
       model_version: -1
       input_map [
         {
-          key: "IMAGE_FP16"
-          value: "input"
+          key: "input"
+          value: "IMAGE_FP16"
         }
       ]
       output_map [
@@ -79,11 +78,11 @@ ensemble_scheduling {
       output_map [
         {
           key: "score_fp16"
-          value: "score_fp16"
-        }, 
+          value: "score_fp16_fin"
+        },
         {
           key: "verdict_fp16"
-          value: "verdict_fp16"
+          value: "verdict_fp16_fin"
         }
       ]
     }
