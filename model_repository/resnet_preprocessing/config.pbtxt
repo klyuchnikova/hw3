@@ -31,11 +31,3 @@ instance_group [
     }
 ]
 
-parameters: [
-  {
-    key: "EXECUTION_ENV_PATH"
-    value: {
-      string_value: "$$TRITON_MODEL_DIRECTORY/../../envs/triton_pil_env310.tar.gz"
-    }
-  }
-]

@@ -11,7 +11,6 @@ services:
     container_name: 'HSE_ht3-triton'
     image: nvcr.io/nvidia/tritonserver:25.01-py3
     # user: root
-    command: >
-      tritonserver --id=hse-ht3-triton --model-repository=/models --exit-on-error=false --model-control-mode=explicit --load-model=* --strict-model-config=false --allow-metrics=true --allow-cpu-metrics=true --log-verbose=1 --repository-poll-secs=60 --cache-config local,size=1048576
-    # shm_size: '16gb'
+    command: sh -c "pip install --no-cache-dir numpy pillow && tritonserver --id=hse-ht3-triton --model-repository=/models --exit-on-error=false --repository-poll-secs=60 --allow-metrics=true --allow-cpu-metrics=true"
+    shm_size: '16gb'
     stdin_open: true

@@ -26,16 +26,6 @@ output [
     name: "verdict_fp16"
     data_type: TYPE_BOOL
     dims: [ 1 ]
-  },
-  {
-    name: "score_fp32"
-    data_type: TYPE_FP32
-    dims: [ 1 ]
-  },
-  {
-    name: "verdict_fp32"
-    data_type: TYPE_BOOL
-    dims: [ 1 ]
   }
 ]
 
@@ -51,10 +41,6 @@ ensemble_scheduling {
         }
       ]
       output_map [
-        {
-          key: "IMAGE_FP32"
-          value: "IMAGE_FP32"
-        },
         {
           key: "IMAGE_FP16"
           value: "IMAGE_FP16"
@@ -74,22 +60,6 @@ ensemble_scheduling {
         {
           key: "output"
           value: "PREDICTION_FP16"
-        }
-      ]
-    },
-    {
-      model_name: "resnet_model_fp32"
-      model_version: -1
-      input_map [
-        {
-          key: "IMAGE_FP32"
-          value: "input"
-        }
-      ]
-      output_map [
-        {
-          key: "output"
-          value: "PREDICTION_FP32"
         }
       ]
     },
@@ -114,30 +84,6 @@ ensemble_scheduling {
         {
           key: "verdict_fp16"
           value: "verdict_fp16"
-        }
-      ]
-    },
-    {
-      model_name: "resnet_postprocessing_fp32"
-      model_version: -1
-      input_map [
-        {
-          key: "PREDICTION_FP32"
-          value: "PREDICTION_FP32"
-        },
-        {
-          key: "THRESHOLD"
-          value: "THRESHOLD"
-        }
-      ]
-      output_map [
-        {
-          key: "score_fp32"
-          value: "score_fp32"
-        }, 
-        {
-          key: "verdict_fp32"
-          value: "verdict_fp32"
         }
       ]
     }
