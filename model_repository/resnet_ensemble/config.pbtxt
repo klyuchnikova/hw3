@@ -4,9 +4,9 @@ max_batch_size: 10
 
 input [
   {
-    name: "IMAGE_PATH"
-    data_type: TYPE_STRING
-    dims: [ -1 ]
+    name: "IMAGE_DATA"
+    data_type: TYPE_FP32
+    dims: [ -1, -1, 3 ]
   },
   {
     name: "THRESHOLD"
@@ -35,8 +35,8 @@ ensemble_scheduling {
       model_version: -1
       input_map [
         {
-          key: "IMAGE_PATH"
-          value: "IMAGE_PATH"
+          key: "IMAGE_DATA"
+          value: "IMAGE_DATA"
         }
       ]
       output_map [

@@ -2,3 +2,7 @@
 *.jpg
 *.onnx
 .ipynb_checkpoints/*
+
+__pycache__/*
+*/__pycache__
+*.tar.gz

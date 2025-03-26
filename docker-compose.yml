@@ -2,9 +2,9 @@ version: '3.3'
 services:
   tritonserver:
     ports:
-      - '13330:8000'
-      - '13331:8001'
-      - '13332:8002'
+      - '8000:8000'
+      - '8001:8001'
+      - '8002:8002'
     volumes:
       - 'D:/E/Copy/PyCharm/Hometask/ml_hard_models_2025/hw3/model_repository:/models'
       - 'D:/E/Copy/PyCharm/Hometask/ml_hard_models_2025/hw3/envs:/envs'
