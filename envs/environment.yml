@@ -1,0 +1,12 @@
+
+name: triton_cv_env310
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pillow
+  - pytorch #Added pytorch because torchvision depends on it
+  - torchvision
+  - pip:
+      - tritonclient[all]  # Add tritonclient (important for interacting with the server!)

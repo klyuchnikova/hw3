@@ -67,12 +67,12 @@ ensemble_scheduling {
       input_map [
         {
           key: "IMAGE_FP16"
-          value: "IMAGE_FP16"
+          value: "input"
         }
       ]
       output_map [
         {
-          key: "PREDICTION_FP16"
+          key: "output"
           value: "PREDICTION_FP16"
         }
       ]
@@ -83,12 +83,12 @@ ensemble_scheduling {
       input_map [
         {
           key: "IMAGE_FP32"
-          value: "IMAGE_FP32"
+          value: "input"
         }
       ]
       output_map [
         {
-          key: "PREDICTION_FP32"
+          key: "output"
           value: "PREDICTION_FP32"
         }
       ]

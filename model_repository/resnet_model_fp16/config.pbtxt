@@ -5,7 +5,7 @@ max_batch_size: 10
 
 input [
   {
-    name: "IMAGE_FP16"
+    name: "input"
     data_type: TYPE_FP16
     dims: [ 3, 224, 224 ]
   }
@@ -13,7 +13,7 @@ input [
 
 output [
   {
-    name: "PREDICTION_FP16"
+    name: "output"
     data_type: TYPE_FP16
     dims: [ 2 ]
   }

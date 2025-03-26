@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  tritonserver:
+    ports:
+      - '13330:8000'
+      - '13331:8001'
+      - '13332:8002'
+    volumes:
+      - 'D:/E/Copy/PyCharm/Hometask/ml_hard_models_2025/hw3/model_repository:/models'
+      - 'D:/E/Copy/PyCharm/Hometask/ml_hard_models_2025/hw3/envs:/envs'
+    container_name: 'HSE_ht3-triton'
+    image: nvcr.io/nvidia/tritonserver:25.01-py3
+    # user: root
+    command: >
+      tritonserver --id=hse-ht3-triton --model-repository=/models --exit-on-error=false --model-control-mode=explicit --load-model=* --strict-model-config=false --allow-metrics=true --allow-cpu-metrics=true --log-verbose=1 --repository-poll-secs=60 --cache-config local,size=1048576
+    # shm_size: '16gb'
+    stdin_open: true
